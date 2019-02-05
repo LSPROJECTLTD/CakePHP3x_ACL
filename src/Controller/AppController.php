@@ -90,8 +90,10 @@ class AppController extends Controller
 
     public function getAcos($params)
     {
+
         $acos = TableRegistry::get('Acos')->find()->contain(['Actions', 'Controllers'])->where(['Controllers.controller' => $params->controller, 'Actions.action' => $params->action]);
         foreach ($acos as $key => $aco) {
+
         }
         if (isset($aco)) {
             return $aco;
@@ -107,11 +109,15 @@ class AppController extends Controller
      */
     public function getArosRoles($aco, $aro)
     {
+
         $acosroles = TableRegistry::get('AcosRoles')->find()->contain(['Acos', 'Roles'])->where(['Acos.id' => $aco->id, 'Roles.id' => $aro->role_id]);
-        if (isset($acosroles)) {
-            return $acosroles;
+        foreach ($acosroles as $key => $acosrole) {
+
+        }
+        if (isset($acosrole)) {
+            return $acosrole;
         } else {
-            $acosroles = false;
+            $acosrole = false;
         }
     }
 
@@ -126,22 +132,23 @@ class AppController extends Controller
         $acos->action = $action = $this->request->getParam('action');
         $acos->controller = $controller = $this->request->getParam('controller');
         $aco = $this->getAcos($acos);
-        $aros = $this->getAros($this->Auth->user('id'));
-        foreach ($aros as $key => $aro) {
-            $acosroles = $this->getArosRoles($aco, $aro);
-            $acosrole = $acosroles->first();
-            if ($acosrole) {
-                break;
+        if ($aco) {
+            $aros = $this->getAros($this->Auth->user('id'));
+            foreach ($aros as $key => $aro) {
+                $acosrole = $this->getArosRoles($aco, $aro);
+                if ($acosrole) {
+                    break;
+                }
             }
-        }
-        if (isset($acosrole)) {
-            if ($acosrole->allowed == 1) {
-                return true;
+            if (isset($acosrole)) {
+                if ($acosrole->allowed == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
-        } else {
-            return false;
         }
         return false;
 
