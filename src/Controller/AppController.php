@@ -30,7 +30,6 @@ class AppController extends Controller
 {
     public function beforeRender(\Cake\Event\Event $event)
     {
-        $this->viewBuilder()->setTheme('AdminEx');
 
     }
 
