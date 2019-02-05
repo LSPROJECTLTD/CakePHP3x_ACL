@@ -7,6 +7,7 @@ Vá até ApController
 Quando carregar o componente auth insira 
  'authorize' => ['Controller'].
 Ex:
+public function initialize(){
 this->loadComponent('Auth', [
             'authorize' => ['Controller'],
             'loginRedirect' => [
@@ -18,7 +19,7 @@ this->loadComponent('Auth', [
                 'action' => 'login',
             ],
         ]);
-        
+        }
 Inicie a função isAuthorized
 
     public function isAuthorized()
