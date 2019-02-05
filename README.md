@@ -22,9 +22,8 @@ this->loadComponent('Auth', [
 Inicie a função isAuthorized
 
     public function isAuthorized()
-    {
-    
-   };
+    {  }
+   
    
 Trabalharemos com ACOS (Controle de Acesso de Objetos) e AROS (Requisições de Acesso a Objetos)
 Irémos dar permissões por "papeis" (roles) dentro dessa ACL, podendo cada usuario ter N papeis.
