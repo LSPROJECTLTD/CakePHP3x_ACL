@@ -126,8 +126,21 @@ class AppController extends Controller
  *
  *
  */
+
+/* Aviso para o Programador:
+//Descomente a seção a baixo, cole no methodo, exclua o parametro $param e subistitua o 46 pelo seu id de usuario,
+// durante a sua programação, para que não seja necessario criar permissões para cada controller que você criar durante o desenvolvimento.
+//
+// $user = $this->Auth->user('id');
+// if (isset($user) && $user == '46') {
+//     return true;
+// }return false;
+
+ */
+
     public function isAuthorized($param)
     {
+
         $acos = (object) array();
         $acos->action = $action = $this->request->getParam('action');
         $acos->controller = $controller = $this->request->getParam('controller');
@@ -151,6 +164,5 @@ class AppController extends Controller
             }
         }
         return false;
-
     }
 }
