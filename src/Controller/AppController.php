@@ -108,12 +108,10 @@ class AppController extends Controller
     public function getArosRoles($aco, $aro)
     {
         $acosroles = TableRegistry::get('AcosRoles')->find()->contain(['Acos', 'Roles'])->where(['Acos.id' => $aco->id, 'Roles.id' => $aro->role_id]);
-        foreach ($acosroles as $key => $acosrole) {
-        }
-        if (isset($acosrole)) {
-            return $acosrole;
+        if (isset($acosroles)) {
+            return $acosroles;
         } else {
-            $acosrole = false;
+            $acosroles = false;
         }
     }
 
@@ -130,9 +128,12 @@ class AppController extends Controller
         $aco = $this->getAcos($acos);
         $aros = $this->getAros($this->Auth->user('id'));
         foreach ($aros as $key => $aro) {
-            $acosrole = $this->getArosRoles($aco, $aro);
-            pr($acosrole);
-        }die;
+            $acosroles = $this->getArosRoles($aco, $aro);
+            $acosrole = $acosroles->first();
+            if ($acosrole) {
+                break;
+            }
+        }
         if (isset($acosrole)) {
             if ($acosrole->allowed == 1) {
                 return true;
